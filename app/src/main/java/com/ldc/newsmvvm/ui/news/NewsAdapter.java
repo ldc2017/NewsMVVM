@@ -1,6 +1,7 @@
 package com.ldc.newsmvvm.ui.news;
 
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -10,6 +11,12 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 public class NewsAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> {
+    private boolean isScroll = false;
+
+    public void setScroll(boolean scroll) {
+        isScroll = scroll;
+    }
+
     public NewsAdapter() {
         super(R.layout.layout_item_news);
     }
@@ -24,11 +31,21 @@ public class NewsAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> {
             baseViewHolder.setVisible(R.id.iv_image, false);
         } else {
 
-            Picasso.get().load(item.getImg())
-                    .resize(200, 160)
-                    .placeholder(R.mipmap.img_placeholder)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                    .into((ImageView) baseViewHolder.getView(R.id.iv_image));
+            if (!isScroll) {
+                Picasso.get().load(item.getImg())
+                        .resize(200, 160)
+                        .placeholder(R.mipmap.img_placeholder)
+                        .centerCrop(Gravity.CENTER)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        .into((ImageView) baseViewHolder.getView(R.id.iv_image));
+            } else {
+                Picasso.get()
+                        .load(R.mipmap.img_placeholder)
+                        .resize(200, 160)
+                        .centerCrop(Gravity.CENTER)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        .into((ImageView) baseViewHolder.getView(R.id.iv_image));
+            }
 
         }
 

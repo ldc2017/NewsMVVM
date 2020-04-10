@@ -5,7 +5,11 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.baselib.base.BaseFragment;
 import com.ldc.baselib.bean.DialogBean;
 import com.ldc.newsmvvm.R;
@@ -14,6 +18,7 @@ import com.ldc.newsmvvm.common.cmConstants;
 import com.ldc.newsmvvm.databinding.FragmentNewsBinding;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -106,6 +111,32 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding, NewsViewMode
         mBinding.dataList.setHasFixedSize(true);
         mBinding.dataList.setItemViewCacheSize(10);
         mBinding.dataList.setAdapter(newsAdapter);
+        mBinding.dataList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    //空闲状态
+                    newsAdapter.setScroll(false);
+                    newsAdapter.notifyDataSetChanged();
+                    Picasso.get().resumeTag(recyclerView);
+                } else {
+                    Picasso.get().pauseTag(recyclerView);
+                    newsAdapter.setScroll(true);
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        //点击事件
+        newsAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                ArrayList<NewsBean> dts = (ArrayList<NewsBean>) adapter.getData();
+                if (null == dts) return;
+                NewsBean dt = dts.get(position);
+                if (null == dt) return;
+                ToastUtils.showShort(dt.getTitle());
+            }
+        });
     }
 
     @Override
