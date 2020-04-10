@@ -8,8 +8,8 @@ android {
         applicationId "com.ldc.newsmvvm"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,6 +26,16 @@ android {
     compileOptions {
         targetCompatibility = 1.8
         sourceCompatibility = 1.8
+    }
+
+
+
+//打包重命名
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                output -> output.outputFileName = rootProject.getName() + "-" + buildType.name + "-" + defaultConfig.versionName + "-" + new Date().format("yyyyMMddHHmmssS", TimeZone.getTimeZone("UTC")) + ".apk"
+            }
     }
 }
 
