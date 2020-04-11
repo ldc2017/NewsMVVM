@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.baselib.base.BaseFragment;
@@ -16,6 +15,7 @@ import com.ldc.newsmvvm.R;
 import com.ldc.newsmvvm.common.BaseBean;
 import com.ldc.newsmvvm.common.cmConstants;
 import com.ldc.newsmvvm.databinding.FragmentNewsBinding;
+import com.ldc.newsmvvm.ui.ShowNewsActivity;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.squareup.picasso.Picasso;
@@ -47,7 +47,7 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding, NewsViewMode
         }
     };
     // 显示加载对话框
-    private Observer<DialogBean> dialogBeanObserver = new Observer<DialogBean>() {
+    private Observer<DialogBean> loadingObserver = new Observer<DialogBean>() {
         @Override
         public void onChanged(DialogBean dialogBean) {
             mBinding.loadingProgress.setVisibility(dialogBean.isShow() ? View.VISIBLE : View.GONE);
@@ -79,7 +79,7 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding, NewsViewMode
         curr_ch = (String) getArguments().getString(curr_showcid_key);
         //
         viewModel.getNewsBean().observe(this, newsBeanNotifyUI);
-        viewModel.show_loading(this, dialogBeanObserver);
+        viewModel.show_loading(this, loadingObserver);
 
 
     }
@@ -134,7 +134,7 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding, NewsViewMode
                 if (null == dts) return;
                 NewsBean dt = dts.get(position);
                 if (null == dt) return;
-                ToastUtils.showShort(dt.getTitle());
+                ShowNewsActivity.actionStart(getActivity(), dt.getLink());
             }
         });
     }

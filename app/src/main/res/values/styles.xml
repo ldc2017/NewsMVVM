@@ -27,15 +27,21 @@
     <!--  自定义tablayout 样式  -->
 
     <style name="my_tab_layout_style" parent="android:Widget" tools:ignore="PrivateResource">
-        <item name="tabIndicatorColor">@color/color_f00</item>
+        <item name="tabIndicatorColor">@color/color_ffffff</item>
         <item name="tabIndicatorHeight">@dimen/dp_2</item>
         <item name="tabPaddingStart">@dimen/dp_12</item>
         <item name="android:textStyle">bold</item>
         <item name="tabPaddingEnd">@dimen/dp_12</item>
         <item name="android:textSize">@dimen/sp_20</item>
-        <item name="tabBackground">@color/color_ffffff</item>
-        <item name="tabSelectedTextColor">@color/color_f00</item>
-        <item name="tabTextColor">@color/color_222222</item>
+        <item name="tabBackground">@color/colorPrimaryDark</item>
+        <item name="tabSelectedTextColor">@color/color_ffffff</item>
+        <item name="tabTextColor">#5C6BC0</item>
         <item name="tabMode">scrollable</item>
+    </style>
+
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/sp_20</item>
     </style>
 </resources>

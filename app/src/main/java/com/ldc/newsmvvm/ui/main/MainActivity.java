@@ -1,5 +1,7 @@
 package com.ldc.newsmvvm.ui.main;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +14,7 @@ import com.ldc.newsmvvm.R;
 import com.ldc.newsmvvm.common.cmConstants;
 import com.ldc.newsmvvm.databinding.ActivityMainBinding;
 import com.ldc.newsmvvm.ui.news.NewsFragment;
+import com.yanzhenjie.permission.AndPermission;
 
 import java.util.ArrayList;
 
@@ -57,9 +60,15 @@ public class MainActivity extends BaseNoModelActivity<ActivityMainBinding> {
         return R.layout.activity_main;
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void initView() {
         init_adapter();
+
+        AndPermission.with(activity)
+                .runtime()
+                .permission(Manifest.permission.ACCESS_NETWORK_STATE)
+                .start();
 
     }
 

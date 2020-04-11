@@ -4,6 +4,7 @@
     package="com.ldc.newsmvvm">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".mApp"
@@ -16,6 +17,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup"
         tools:targetApi="n">
+        <activity
+            android:name=".ui.ShowNewsActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
