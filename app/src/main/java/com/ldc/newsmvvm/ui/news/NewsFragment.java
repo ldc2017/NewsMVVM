@@ -5,6 +5,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -60,7 +61,7 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding, NewsViewMode
 
     @Override
     protected NewsViewModel initViewModel() {
-        return new NewsViewModel();
+        return ViewModelProviders.of(this).get(NewsViewModel.class);
     }
 
     @Override

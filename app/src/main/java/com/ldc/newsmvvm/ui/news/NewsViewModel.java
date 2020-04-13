@@ -15,10 +15,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class NewsViewModel extends BaseViewModel {
+
     private ApiServer apiServer;
     private final MutableLiveData<BaseBean<ArrayList<NewsBean>>> newsBean = new MutableLiveData<>();
 
-    NewsViewModel() {
+    public NewsViewModel() {
         apiServer = Api2Request.getInstance().CreateServer(ApiServer.class);
     }
 
