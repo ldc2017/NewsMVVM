@@ -1,13 +1,15 @@
 package com.ldc.baselib.base;
 
-import androidx.annotation.LayoutRes;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import me.jessyan.autosize.internal.CustomAdapt;
 import me.yokeyword.fragmentation.SupportActivity;
@@ -18,6 +20,16 @@ public abstract class BaseNoModelActivity<B extends ViewDataBinding> extends Sup
     protected B mBinding;
     protected Activity activity;
     protected Context context;
+    protected final Handler uiHandler =new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            return uiHandleMessage(msg);
+        }
+    });
+
+    protected boolean uiHandleMessage(@NonNull Message msg){
+        return false;
+    }
 
     @Override
     protected void onDestroy() {
